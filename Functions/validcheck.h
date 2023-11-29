@@ -107,4 +107,52 @@ bool isVendorCodeExist(char *vendorcode)
     return false;
 }
 
+// Function to check if the phone is sold or not return true if sold and false if not
+bool isPhoneSold(char *sn)
+{
+    // Declare variables
+    struct phone phone;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(phonesfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return false;
+    }
+
+    // Check if SN exist
+    while (fread(&phone, sizeof(struct phone), 1, fp))
+    {
+        if (strcmp(phone.serialnumber, sn) == 0)
+        {
+            // Close file
+            fclose(fp);
+            return phone.sold;
+        }
+    }
+
+    // Check if the phone is sold or not
+    if (phone.sold == 1)
+    {
+        // Close file
+        fclose(fp);
+        return true;
+    }
+    // Check if the phone has sold date = 0 or nut
+    else if (phone.sellDT.day == 0)
+    {
+        // Close file
+        fclose(fp);
+        return true;
+    }
+
+    // Close file
+    fclose(fp);
+    return false;
+}
+
 #endif // VALIDCHECK_H

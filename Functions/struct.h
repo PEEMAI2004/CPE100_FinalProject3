@@ -39,6 +39,7 @@ struct phone
     struct Dateandtime purchaseDT;
     int sellprice;
     struct Dateandtime sellDT;
+    int sold;
 };
 
 

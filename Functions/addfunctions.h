@@ -146,20 +146,10 @@ void addNewPhone()
     // Get phone details from user
     printf("Enter Serial Number: ");
     scanf("%s", phone.serialnumber);
-    // Check if SN exist, if exist ask user to enter another SN
-    while (isSerialNumberExist(phone.serialnumber))
-    {
-        printf("Serial Number already exists, please enter another Serial Number: ");
-        scanf("%s", phone.serialnumber);
-    }
+    
     printf("Enter Vendor Code: ");
     scanf("%s", phone.vendercode);
-    // Check if VC exist, if not ask user to enter another VC
-    while (!isModelNumberExist(phone.vendercode))
-    {
-        printf("Vendor Code does not exist, please enter another Vendor Code: ");
-        scanf("%s", phone.vendercode);
-    }
+    
     printf("Enter Purchase Price: ");
     scanf("%d", &phone.purchaseprice);
 
@@ -193,6 +183,7 @@ void addNewPhone()
     phone.sellDT.day = 0;
     phone.sellDT.hour = 0;
     phone.sellDT.minute = 0;
+    phone.sold = 0;
 
 
     // Write phone to file

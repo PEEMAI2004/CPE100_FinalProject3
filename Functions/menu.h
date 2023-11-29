@@ -5,7 +5,13 @@
 #include "addfunctions.h"
 #include "findfunctions.h"
 #include "editfunctions.h"
-
+#include "sellphone.h"
+// Function to ask user to enter any key to continue
+void askToContinue() {
+    printf("Press any key to continue...");
+    getchar();
+    getchar();
+}
 
 // Add Menu function
 void addMenu() {
@@ -27,27 +33,32 @@ void addMenu() {
         switch (choice) {
             case 1:
                 addNewPhone();
+                askToContinue();
                 break;
             case 2:
                 addNewModel();
+                askToContinue();
                 break;
             case 3:
                 addNewPhoneCSV();
+                askToContinue();
                 break;
             case 4:
                 addNewModelCSV();
+                askToContinue();
                 break;
             case 0:
                 flag = 0;
             default:
                 printf("Invalid choice\n");
+                askToContinue();
                 break;
         }
 
-        // pause and wait for user to press any key
-        printf("Press any key to continue...");
-        getchar();
-        getchar();
+        // // pause and wait for user to press any key
+        // printf("Press any key to continue...");
+        // getchar();
+        // getchar();
     }
 }
 
@@ -103,8 +114,9 @@ void menu() {
         printf("4. Print all Model\n");
         printf("5. Find a phone\n");
         printf("6. Find a model\n");
-        printf("7. \n");
+        printf("7. Sell Phone using SN\n");
         printf("8. \n");
+        printf("9. \n");
         printf("0. Exit\n");
 
         // get user input
@@ -133,12 +145,15 @@ void menu() {
                 FindPhoneusingVCInput();
                 break;
             case 7:
-                
+                sellPhoneCLI();
                 break;
             case 8:
                 
                 break;
             case 9:
+                
+                break;
+            case 0:
                 exit(0);
             default:
                 printf("Invalid choice\n");
