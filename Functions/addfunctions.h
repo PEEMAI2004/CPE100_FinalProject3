@@ -20,7 +20,7 @@ void addNewModel()
     printf("Enter Vendor Code: ");
     scanf("%s", model.vendercode);
     // Check if VC exist, if exist ask user to enter another VC because VC is unique
-    while (isModelNumberExist(model.vendercode))
+    while (isVendorCodeExist(model.vendercode))
     {
         printf("Vendor Code already exists, please enter another Vendor Code: ");
         scanf("%s", model.vendercode);
@@ -83,7 +83,7 @@ void addNewModelCSV() {
         // Tokenize the line using comma as the delimiter
         char *token = strtok(line, ",");
         int i = 0;
-
+        // MN, VC, Manufacture, Model-Name, Storage, Color, Sell-Price
         // Extract data from each token
         while (token != NULL) {
             switch (i) {
@@ -146,6 +146,13 @@ void addNewPhone()
     // Get phone details from user
     printf("Enter Serial Number: ");
     scanf("%s", phone.serialnumber);
+
+    // Check if SN exist, if exist ask user to enter another SN because SN is unique
+    while (isSerialNumberExist(phone.serialnumber))
+    {
+        printf("Serial Number already exists, please enter another Serial Number: ");
+        scanf("%s", phone.serialnumber);
+    }
     
     printf("Enter Vendor Code: ");
     scanf("%s", phone.vendercode);
@@ -225,7 +232,8 @@ void addNewPhoneCSV()
         // Tokenize the line using comma as delimiter
         char* token = strtok(line, ",");
         int i = 1;
-
+        
+        // SN, MN, VC, Purchase-Price
         // Parse each token and assign it to the corresponding field in phone struct
         while (token != NULL)
         {
