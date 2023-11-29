@@ -178,6 +178,48 @@ char *FindModelusingVC(char *VC) {
     return NULL;
 }
 
+// Function to find model data using Model-Number and print all MN, VC, Manufacture, Model-Name, Storage, Color, Sell-Price
+void FindModelusingMN(char *MN) {
+    // Declare variables
+    struct phoneModel model;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(modelsfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+
+    // Find model data by Model-Number
+    while (fread(&model, sizeof(struct phoneModel), 1, fp)) {
+        if (strcmp(model.modelnumber, MN) == 0) {
+            printf("Model Number\tVendor Code\tManufacture\tModel Name\tStorage\tColor\tSell Price\n");
+            printf("%s\t%s\t%s\t%s\t%d\t%s\t%d\n", model.modelnumber, model.vendercode, model.manufacture, model.modelname, model.storage, model.coloroption, model.sellprice);
+            break;
+        }
+    }
+
+    // Close file
+    fclose(fp);
+}
+
+// Function to find model data using Model-Number in CLI
+void FindModelusingMNInput() {
+    // Declare variables
+    char MN[32];
+
+    // Get MN from user
+    printf("Enter Model Number: ");
+    scanf("%s", MN);
+
+    // Find model by MN
+    FindModelusingMN(MN);
+}
+
+
 // Function to find a Vendor-Code by Serial-Number, return vendorcode
 char *FindVCusingSN(char *SN) {
     // Declare variables
@@ -256,5 +298,6 @@ int FindSellPriceusingSN(char *SN) {
     int sellprice = FindSellPriceusingVC(VC);
     return sellprice;
 }
+
 
 #endif // FINDFUNCTIONS_H

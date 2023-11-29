@@ -113,6 +113,7 @@ void findMenu() {
         printf("\n\n");
         printf("1. Find a phone using Serial Number\n");
         printf("2. Find a phone using Vendor Code\n");
+        printf("3. Find a phone using Model Number\n");
         printf("0. Exit to main menu\n");
 
         // get user input
@@ -127,6 +128,9 @@ void findMenu() {
                 break;
             case 2:
                 FindPhoneusingVCInput();
+                break;
+            case 3:
+                FindModelusingMNInput();
                 break;
             case 0:
                 flag = 0;
