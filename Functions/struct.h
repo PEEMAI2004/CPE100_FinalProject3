@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 // struct to store Date and time
 struct Dateandtime
@@ -42,5 +43,11 @@ struct phone
     int sold;
 };
 
+struct user
+{
+    char username[64];
+    char password[64];
+    bool isadmin;
+};
 
 #endif // STRUCT_H

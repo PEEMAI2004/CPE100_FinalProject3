@@ -8,5 +8,6 @@
 // File name to store data
 const char phonesfilename[] = "phones.bin";
 const char modelsfilename[] = "models.bin";
+const char usersfilename[] = "encrypteduserdata.bin";
 
 #endif // FILES_H

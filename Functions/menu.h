@@ -6,6 +6,7 @@
 #include "findfunctions.h"
 #include "editfunctions.h"
 #include "sellphone.h"
+#include "usersystem.h"
 // Function to ask user to enter any key to continue
 void askToContinue() {
     printf("Press any key to continue...");
@@ -91,6 +92,7 @@ void editMenu() {
                 break;
             case 0:
                 flag = 0;
+                break;
             default:
                 printf("Invalid choice\n");
                 break;
@@ -103,20 +105,151 @@ void editMenu() {
     }
 }
 
+// Find Menu function
+void findMenu() {
+    int flag = 1;
+    while (flag) {
+        // provide a menu for the user
+        printf("\n\n");
+        printf("1. Find a phone using Serial Number\n");
+        printf("2. Find a phone using Vendor Code\n");
+        printf("0. Exit to main menu\n");
+
+        // get user input
+        int choice;
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // process user input
+        switch (choice) {
+            case 1:
+                FindPhoneusingSNInput();
+                break;
+            case 2:
+                FindPhoneusingVCInput();
+                break;
+            case 0:
+                flag = 0;
+                break;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+
+        // pause and wait for user to press any key
+        printf("Press any key to continue...");
+        getchar();
+        getchar();
+    }
+}
+
+// Admin Menu function
+void adminMenu() {
+    int flag = 1;
+    while (flag) {
+        // provide a menu for the user
+        printf("\n\n");
+        printf("1. Add a user\n");
+        printf("2. Remove a user\n");
+        printf("3. Change password\n");
+        printf("4. List username\n");
+        printf("5. List admin\n");
+        printf("6. Grain Admin Permission\n");
+        printf("7. Remove Admin Permission\n");
+        printf("0. Exit to main menu\n");
+
+        // get user input
+        int choice;
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // process user input
+        switch (choice) {
+            case 1:
+                createAccountCLI();
+                break;
+            case 2:
+                deleteAccountCLI();
+                break;
+            case 3:
+                changePasswordCLI();
+                break;
+            case 4:
+                listAccount();
+                break;
+            case 5:
+                listAdmin();
+                break;
+            case 6:
+                grantAdminCLI();
+                break;
+            case 7:
+                revokeAdminCLI();
+                break;
+            case 0:
+                flag = 0;
+                break;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+
+        // pause and wait for user to press any key
+        printf("Press any key to continue...");
+        getchar();
+        getchar();
+    }
+}
+
+// Print Menu function
+void printMenu() {
+    int flag = 1;
+    while (flag) {
+        // provide a menu for the user
+        printf("\n\n");
+        printf("1. Print all models\n");
+        printf("2. Print all phones\n");
+        printf("0. Exit to main menu\n");
+        
+        char choice;
+        printf("Enter your choice: ");
+        scanf(" %c", &choice);
+
+        // process user input
+        switch (choice) {
+            case '1':
+                printAllModels();
+                break;
+            case '2':
+                printAllPhones();
+                break;
+            case '0':
+                flag = 0;
+                break;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+    }
+}
+
 // Main Menu function
-void menu() {
+void menu(bool isAdmin) {
     while (1) {
         // provide a menu for the user
         printf("\n\n");
         printf("1. Add Menu\n");
         printf("2. Edit Menu\n");
-        printf("3. Print all Phone\n");
-        printf("4. Print all Model\n");
-        printf("5. Find a phone\n");
-        printf("6. Find a model\n");
-        printf("7. Sell Phone using SN\n");
-        printf("8. \n");
-        printf("9. \n");
+        printf("3. Find Menu\n");
+        printf("4. Print Menu\n");
+        printf("5. \n");
+        printf("6. \n");
+        printf("7. \n");
+        printf("8. Sell Phone using SN\n");
+        // Show admin menu if user is admin
+        if (isAdmin) {
+            printf("9. Admin Menu\n");
+        }
         printf("0. Exit\n");
 
         // get user input
@@ -133,25 +266,28 @@ void menu() {
                 editMenu();
                 break;
             case 3:
-                printAllPhones();
+                findMenu();
                 break;
             case 4:
-                printAllModels();
+                printMenu();
                 break;
             case 5:
-                FindPhoneusingSNInput();
+                
                 break;
             case 6:
-                FindPhoneusingVCInput();
+                
                 break;
             case 7:
-                sellPhoneCLI();
+                
                 break;
             case 8:
-                
+                sellPhoneCLI();
                 break;
             case 9:
-                
+                // Show admin menu if user is admin
+                if (isAdmin) {
+                    adminMenu();
+                }
                 break;
             case 0:
                 exit(0);
