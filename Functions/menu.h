@@ -117,7 +117,7 @@ void stockMenu() {
         printf("4. Count number of all unsold phones\n");
         printf("5. Count number of all sold phones\n");
         printf("6. Count number of all phones\n");
-        printf("9. Edit Notify Number of unsold phone\n");
+        // printf("9. Edit Notify Number of unsold phone\n");
         printf("0. Exit to main menu\n");
 
         // get user input
@@ -128,25 +128,25 @@ void stockMenu() {
         // process user input
         switch (choice) {
             case 1:
-                countUnsoldPhoneUsingVC();
+                countUnsoldPhonesUsingVCCLI();
                 break;
             case 2:
-                countSoldPhoneUsingVC();
+                countUnsoldPhonesUsingVCCLI();
                 break;
             case 3:
-                countAllPhoneUsingVC();
+                countPhonesUsingVCCLI();
                 break;
             case 4:
-                countAllUnsoldPhone();
+                countAllUnsoldPhonesCLI();
                 break;
             case 5:
-                countAllSoldPhone();
+                countAllSoldPhonesCLI();
                 break;
             case 6:
-                countAllPhone();
+                countAllPhonesCLI();
                 break;
             case 9:
-                editNotifyNumberofUnsoldPhone();
+                // editNotifyNumberofUnsoldPhone();
                 break;
             case 0:
                 flag = 0;
@@ -155,6 +155,8 @@ void stockMenu() {
                 printf("Invalid choice\n");
                 break;
         }
+    }
+}
 
 // Find Menu function
 void findMenu() {
@@ -297,7 +299,7 @@ void menu(bool isAdmin) {
         printf("2. Edit Menu\n");
         printf("3. Find Menu\n");
         printf("4. Print Menu\n");
-        printf("5. \n");
+        printf("5. Stock Menu\n");
         printf("6. \n");
         printf("7. \n");
         printf("8. Sell Phone using SN\n");
@@ -327,7 +329,7 @@ void menu(bool isAdmin) {
                 printMenu();
                 break;
             case 5:
-                
+                stockMenu();
                 break;
             case 6:
                 
