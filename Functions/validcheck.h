@@ -154,5 +154,5 @@ bool isPhoneSold(char *sn)
     fclose(fp);
     return false;
 }
-.
+//
 #endif // VALIDCHECK_H
