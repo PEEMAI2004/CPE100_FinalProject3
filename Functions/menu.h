@@ -7,6 +7,7 @@
 #include "editfunctions.h"
 #include "sellphone.h"
 #include "usersystem.h"
+#include "stock.h"
 // Function to ask user to enter any key to continue
 void askToContinue() {
     printf("Press any key to continue...");
@@ -104,6 +105,56 @@ void editMenu() {
         getchar();
     }
 }
+
+// Stock Menu function
+void stockMenu() {
+    int flag = 1;
+    while (flag) {
+        // provide a menu for the user
+        printf("1. Count number of unsold phones using VC\n");
+        printf("2. Count number of sold phones using VC\n");
+        printf("3. Count number of all phones using VC\n");
+        printf("4. Count number of all unsold phones\n");
+        printf("5. Count number of all sold phones\n");
+        printf("6. Count number of all phones\n");
+        printf("9. Edit Notify Number of unsold phone\n");
+        printf("0. Exit to main menu\n");
+
+        // get user input
+        int choice;
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // process user input
+        switch (choice) {
+            case 1:
+                countUnsoldPhoneUsingVC();
+                break;
+            case 2:
+                countSoldPhoneUsingVC();
+                break;
+            case 3:
+                countAllPhoneUsingVC();
+                break;
+            case 4:
+                countAllUnsoldPhone();
+                break;
+            case 5:
+                countAllSoldPhone();
+                break;
+            case 6:
+                countAllPhone();
+                break;
+            case 9:
+                editNotifyNumberofUnsoldPhone();
+                break;
+            case 0:
+                flag = 0;
+                break;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
 
 // Find Menu function
 void findMenu() {

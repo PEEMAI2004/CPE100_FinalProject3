@@ -4,6 +4,7 @@
 
 #include "Functions/menu.h"
 #include "Functions/usersystem.h"
+#include "Functions/stock.h"
 
 int main()
 {   
@@ -12,6 +13,10 @@ int main()
 
     // Login
     bool isadmin = login();
+
+    // Notify low stock
+    notifyStockLowerThanConfig();
+
     // Menu
     menu(isadmin);
     
