@@ -10,7 +10,7 @@
 #include "stock.h"
 // Function to ask user to enter any key to continue
 void askToContinue() {
-    printf("Press any key to continue...");
+    printf("Press Enter or Return to continue...");
     getchar();
     getchar();
 }
@@ -73,6 +73,7 @@ void editMenu() {
         printf("1. Remove a phone\n");
         printf("2. Remove a model using Vendor code\n");
         printf("3. Remove models using Model Number\n");
+        printf("4. Edit sell price using VC\n");
         printf("0. Exit to main menu\n");
 
         // get user input
@@ -90,6 +91,9 @@ void editMenu() {
                 break;
             case 3:
                 removeModelUsingModelNumber();
+                break;
+            case 4:
+                editModelSellPriceUsingVendorCode();
                 break;
             case 0:
                 flag = 0;
@@ -111,6 +115,7 @@ void stockMenu() {
     int flag = 1;
     while (flag) {
         // provide a menu for the user
+        printf("\n\n");
         printf("1. Count number of unsold phones using VC\n");
         printf("2. Count number of sold phones using VC\n");
         printf("3. Count number of all phones using VC\n");
@@ -129,24 +134,31 @@ void stockMenu() {
         switch (choice) {
             case 1:
                 countUnsoldPhonesUsingVCCLI();
+                askToContinue();
                 break;
             case 2:
                 countUnsoldPhonesUsingVCCLI();
+                askToContinue();
                 break;
             case 3:
                 countPhonesUsingVCCLI();
+                askToContinue();
                 break;
             case 4:
                 countAllUnsoldPhonesCLI();
+                askToContinue();
                 break;
             case 5:
                 countAllSoldPhonesCLI();
+                askToContinue();
                 break;
             case 6:
                 countAllPhonesCLI();
+                askToContinue();
                 break;
             case 9:
                 // editNotifyNumberofUnsoldPhone();
+                askToContinue();
                 break;
             case 0:
                 flag = 0;
