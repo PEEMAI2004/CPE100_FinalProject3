@@ -74,9 +74,18 @@ void addNewModelCSV() {
         return;
     }
 
+    // define line number
+    int lineNumber = 0;
+
     // Read and process each line in the .csv file
     char line[100];
     while (fgets(line, sizeof(line), fp)) {
+        // Skip the first line
+        if (lineNumber == 0) {
+            lineNumber++;
+            continue;
+        }
+
         // Declare variables
         struct phoneModel model;
 
@@ -112,6 +121,8 @@ void addNewModelCSV() {
             token = strtok(NULL, ",");
             i++;
         }
+
+        lineNumber++; // increment line number
 
         // Open file in append binary mode
         FILE *modelFile = fopen(modelsfilename, "ab");

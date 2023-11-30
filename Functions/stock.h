@@ -48,49 +48,6 @@ void countAllPhonesCLI()
     printf("Total phones: %d\n", countAllPhones());
 }
 
-// Function to count all unsold phones in the database from phonesfilename
-int countAllUnsoldPhones()
-{
-    // Declare variables
-    struct phone p;
-    int count = 0;
-    FILE *fp;
-
-    // Open file in read binary mode
-    fp = fopen(phonesfilename, "rb");
-
-    // Check if file is opened successfully
-    if (fp == NULL)
-    {
-        printf("Error opening file\n");
-        return -1;
-    }
-
-    // Loop through file
-    while (fread(&p, sizeof(struct phone), 1, fp))
-    {
-        // Check if sold is 0
-        if (p.sold == 0)
-        {
-            // Increase count
-            count++;
-        }
-    }
-
-    // Close file
-    fclose(fp);
-
-    // Return count
-    return count;
-}
-
-// Function to count all unsold phones in the database from phonesfilename CLI
-void countAllUnsoldPhonesCLI()
-{
-    // Print number of phones
-    printf("Total unsold phones: %d\n", countAllUnsoldPhones());
-}
-
 // Function to count all sold phones in the database from phonesfilename
 int countAllSoldPhones()
 {
@@ -125,6 +82,19 @@ int countAllSoldPhones()
 
     // Return count
     return count;
+}
+
+// Function to count all unsold phones in the database from phonesfilename
+int countAllUnsoldPhones()
+{
+    int unsold = countAllPhones() - countAllSoldPhones();
+}
+
+// Function to count all unsold phones in the database from phonesfilename CLI
+void countAllUnsoldPhonesCLI()
+{
+    // Print number of phones
+    printf("Total unsold phones: %d\n", countAllUnsoldPhones());
 }
 
 // Function to count all sold phones in the database from phonesfilename CLI
