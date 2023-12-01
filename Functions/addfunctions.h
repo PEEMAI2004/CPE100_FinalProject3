@@ -171,8 +171,17 @@ void addNewPhone()
     printf("Enter Purchase Price: ");
     scanf("%d", &phone.purchaseprice);
 
-    // Find model number using FindModelusingVC function
-    strcpy(phone.modelnumber, FindModelusingVC(phone.vendercode));
+    // Find model number using FindModelusingVC function and assign it to phone struct
+    char *MN;
+    MN = FindModelusingVC(phone.vendercode);
+    // Check if the function return NULL
+    if (MN == NULL)
+    {
+        printf("Error finding Model Number\n");
+        return;
+    }
+    // Copy model number to phone struct
+    strcpy(phone.modelnumber, MN);
 
     // Get current date and time
     struct Dateandtime dt = getCurrentDateTime();

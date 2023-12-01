@@ -10,7 +10,7 @@
 void removeModelUsingVendorCode()
 {
     // Declare variables
-    char vendercode[10];
+    char vendercode[32];
     struct phoneModel model;
     FILE *fp, *temp;
 

@@ -168,13 +168,15 @@ char *FindModelusingVC(char *VC) {
     while (fread(&model, sizeof(struct phoneModel), 1, fp)) {
         if (strcmp(model.vendercode, VC) == 0) {
             fclose(fp);
-            char *modelnumber = model.modelnumber;
+            char *modelnumber = malloc(strlen(model.modelnumber) + 1);
+            strcpy(modelnumber, model.modelnumber);
             return modelnumber;
         }
     }
 
     // Close file
     fclose(fp);
+    // return NULL if VC is not found
     return NULL;
 }
 
