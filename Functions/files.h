@@ -9,6 +9,5 @@
 const char phonesfilename[] = "phones.bin";
 const char modelsfilename[] = "models.bin";
 const char usersfilename[] = "encrypteduserdata.bin";
-const char configfilename[] = "config.yaml";
 
 #endif // FILES_H

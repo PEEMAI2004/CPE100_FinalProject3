@@ -5,9 +5,10 @@
 #include "Functions/menu.h"
 #include "Functions/usersystem.h"
 #include "Functions/stock.h"
+#include "Functions/backupfunction.h"
 
 int main()
-{   
+{     
     // Check if userdata.bin exist
     initializeUserdata();
 

@@ -8,6 +8,7 @@
 #include "sellphone.h"
 #include "usersystem.h"
 #include "stock.h"
+#include "printfunctions.h"
 // Function to ask user to enter any key to continue
 void askToContinue() {
     printf("Press Enter or Return to continue...");
@@ -302,6 +303,58 @@ void printMenu() {
     }
 }
 
+// Backup Menu function
+void backupMenu() {
+    int flag = 1;
+    while (flag) {
+        // provide a menu for the user
+        printf("\n\n");
+        printf("1. Export users\n");
+        printf("2. Export phones\n");
+        printf("3. Export models\n");
+        printf("4. Export all\n");
+        printf("5. Clear Backups Path\n");
+        printf("0. Exit to main menu\n");
+
+        // get user input
+        int choice;
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // process user input
+        switch (choice) {
+            case 1:
+                createUsersBackup();
+                break;
+            case 2:
+                createPhonesBackup();
+                break;
+            case 3:
+                createModelsBackup();
+                break;
+            case 4:
+                createUsersBackup();
+                createPhonesBackup();
+                createModelsBackup();
+                break;
+            case 5:
+                clearBackupsPath();
+                break;
+            case 0:
+                flag = 0;
+                break;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+
+        // pause and wait for user to press any key
+        printf("Press any key to continue...");
+        getchar();
+        getchar();
+    }
+}
+
 // Main Menu function
 void menu(bool isAdmin) {
     while (1) {
@@ -312,7 +365,7 @@ void menu(bool isAdmin) {
         printf("3. Find Menu\n");
         printf("4. Print Menu\n");
         printf("5. Stock Menu\n");
-        printf("6. \n");
+        printf("6. Blackup Menu\n");
         printf("7. \n");
         printf("8. Sell Phone using SN\n");
         // Show admin menu if user is admin
