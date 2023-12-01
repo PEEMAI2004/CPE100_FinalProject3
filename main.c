@@ -15,6 +15,9 @@ int main()
     // Login
     bool isadmin = login();
 
+    // Print welcome message
+    printf("\nPhone Shop Stock Management System (V3.0)\n");
+
     // Notify low stock
     ShowUnsoldVCthatLessthanOnStart();
 

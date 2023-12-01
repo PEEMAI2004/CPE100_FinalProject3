@@ -496,4 +496,9 @@ void initializeUserdata() {
     }
 }
 
+void about() {
+    // Print the about message
+    printf("This project is a Phone Shop Stock Management System implemented in C. It provides functionalities to manage and manipulate a database of phone models.\n");
+}
+
 #endif // !USERSYSTEM_H

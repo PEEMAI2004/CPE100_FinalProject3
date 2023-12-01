@@ -368,7 +368,7 @@ void menu(bool isAdmin) {
         printf("4. Print Menu\n");
         printf("5. Stock Menu\n");
         printf("6. Blackup Menu\n");
-        printf("7. \n");
+        printf("7. About\n");
         printf("8. Sell Phone using SN\n");
         // Show admin menu if user is admin
         if (isAdmin) {
@@ -399,10 +399,10 @@ void menu(bool isAdmin) {
                 stockMenu();
                 break;
             case 6:
-                
+                backupMenu();
                 break;
             case 7:
-                
+                about();
                 break;
             case 8:
                 sellPhoneCLI();
