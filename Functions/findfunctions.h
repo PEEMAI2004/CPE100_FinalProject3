@@ -343,13 +343,14 @@ int FindSellPriceusingVC(char *VC)
         return -1;
     }
 
-    // Find sellprice by Vendor-Code, ignore spaces
+    // Find sellprice by Vendor-Code
     while (fread(&model, sizeof(struct phoneModel), 1, fp))
     {
         if (strcmp(model.vendercode, VC) == 0)
         {
-            fclose(fp);
             int sellprice = model.sellprice;
+            printf("Sell Price: %d\n", sellprice);
+            fclose(fp);
             return sellprice;
         }
     }
@@ -357,7 +358,42 @@ int FindSellPriceusingVC(char *VC)
     // Close file
     fclose(fp);
     // return -1 if VC is not found
-    printf("Error finding Sell Price\n");
+    printf("Error finding Sell Price using VC   \n");
+    return -1;
+}
+
+int FindModelPriceUsingVC(char *VC)
+{
+    // Declare variables
+    struct phoneModel model;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(modelsfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return -1;
+    }
+
+    // Find model data by Model-Number
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        if (strcmp(model.vendercode, VC) == 0)
+        {
+            printf("Model Number\tVendor Code\tManufacture\tModel Name\tStorage\tColor\tSell Price\n");
+            printf("%s\t%s\t%s\t%s\t%d\t%s\t%d\n", model.modelnumber, model.vendercode, model.manufacture, model.modelname, model.storage, model.coloroption, model.sellprice);
+            return model.sellprice;
+        }
+    }
+
+    // Close file
+    fclose(fp);
+
+    // print error if VC is not found
+    printf("Error finding Sell Price using VC   \n");
     return -1;
 }
 
@@ -375,7 +411,7 @@ int FindSellPriceusingSN(char *SN)
     }
 
     // Find sellprice by VC
-    int sellprice = FindSellPriceusingVC(VC);
+    int sellprice = FindModelPriceUsingVC(VC);
     return sellprice;
 }
 

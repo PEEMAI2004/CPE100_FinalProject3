@@ -137,7 +137,7 @@ void stockMenu() {
                 askToContinue();
                 break;
             case 2:
-                countUnsoldPhonesUsingVCCLI();
+                countSoldPhonesUsingVCCLI();
                 askToContinue();
                 break;
             case 3:

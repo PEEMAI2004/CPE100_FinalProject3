@@ -14,7 +14,8 @@
 // Function to sell a phone using SN
 // By sell phone, it add Sell date and time, Sell price to the database
 // This function take SN and sell price as input
-void sellPhone(char *SN, int sellPrice){
+void sellPhone(char *SN, int sellPrice)
+{
     // Declare variables
     struct phone phone;
     FILE *fp;
@@ -84,23 +85,29 @@ void sellPhone(char *SN, int sellPrice){
 }
 
 // Function to sell a phone using SN via CLI
-void sellPhoneCLI(){
+void sellPhoneCLI()
+{
     // Declare variables
-    char SN[20];
+    char SN[32];
+    char VC[32];
     int sellPrice;
 
     // Get SN from user
     printf("Enter Serial Number: ");
     scanf("%s", SN);
 
-    sellPrice = FindSellPriceusingSN(SN);
+    // Ask user to manually enter VC price
+    printf("Enter Vendor Code: ");
+    scanf("%s", VC);
 
+    // Get sell price from database using function FindSellPriceusingVC
+    sellPrice = FindSellPriceusingVC(VC);
     if (sellPrice == -1)
     {
+        // Ask user to manually enter sell price
         printf("Preconfig Price not exist\nPlese enter sell price:\n");
         scanf("%d", &sellPrice);
         sellPhone(SN, sellPrice);
-        return;
     }
 
     // Ask user to use predefined sell price or not
@@ -111,8 +118,9 @@ void sellPhoneCLI(){
     // Check if user want to use predefined sell price
     if (choice == 'y')
     {
-        // Get sell price from database using function FindSellPriceusingSN
-        sellPrice = FindSellPriceusingSN(SN);
+        // Sell phone
+        sellPhone(SN, sellPrice);
+        return;
     }
     else
     {
@@ -124,6 +132,5 @@ void sellPhoneCLI(){
     // Sell phone
     sellPhone(SN, sellPrice);
 }
-
 
 #endif // FUNCTIONS_SELLPHONE_H
