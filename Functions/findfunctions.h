@@ -10,7 +10,6 @@
 #include "dateandtimefunction.h"
 #include "validcheck.h"
 
-
 // Function to print all Models in the database
 void printAllModels()
 {
@@ -68,7 +67,8 @@ void printAllPhones()
 }
 
 // Function to find a model by Model-Number
-void FindPhoneusingSN(char *SN) {
+void FindPhoneusingSN(char *SN)
+{
     // Declare variables
     struct phone phone;
     FILE *fp;
@@ -77,14 +77,17 @@ void FindPhoneusingSN(char *SN) {
     fp = fopen(phonesfilename, "rb");
 
     // Check if file is opened successfully
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("Error opening file\n");
         return;
     }
 
     // Find phone by Model-Number
-    while (fread(&phone, sizeof(struct phone), 1, fp)) {
-        if (strcmp(phone.serialnumber, SN) == 0) {
+    while (fread(&phone, sizeof(struct phone), 1, fp))
+    {
+        if (strcmp(phone.serialnumber, SN) == 0)
+        {
             printf("Serial Number\tModel Number\tVendor Code\tPurchase Price\tPurchase Date\tPurchase Time\tSell Price\tSell Date\tSell Time\n");
             printf("%s\t%s\t%s\t%d\t%d-%d-%d\t%d:%d\t%d\t%d-%d-%d\t%d:%d\n", phone.serialnumber, phone.modelnumber, phone.vendercode, phone.purchaseprice, phone.purchaseDT.year, phone.purchaseDT.month, phone.purchaseDT.day, phone.purchaseDT.hour, phone.purchaseDT.minute, phone.sellprice, phone.sellDT.year, phone.sellDT.month, phone.sellDT.day, phone.sellDT.hour, phone.sellDT.minute);
             break;
@@ -96,7 +99,8 @@ void FindPhoneusingSN(char *SN) {
 }
 
 // Function to input SN to find phone
-void FindPhoneusingSNInput() {
+void FindPhoneusingSNInput()
+{
     // Declare variables
     char SN[32];
 
@@ -108,8 +112,9 @@ void FindPhoneusingSNInput() {
     FindPhoneusingSN(SN);
 }
 
-// Function to find a model by Vendor-Code
-void FindPhoneusingVC(char *VC) {
+// Function to find a phone by Vendor-Code
+void FindPhoneusingVC(char *VC)
+{
     // Declare variables
     struct phone phone;
     FILE *fp;
@@ -118,14 +123,17 @@ void FindPhoneusingVC(char *VC) {
     fp = fopen(phonesfilename, "rb");
 
     // Check if file is opened successfully
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("Error opening file\n");
         return;
     }
 
     // Find phone by Vendor-Code
-    while (fread(&phone, sizeof(struct phone), 1, fp)) {
-        if (strcmp(phone.vendercode, VC) == 0) {
+    while (fread(&phone, sizeof(struct phone), 1, fp))
+    {
+        if (strcmp(phone.vendercode, VC) == 0)
+        {
             printf("Serial Number\tModel Number\tVendor Code\tPurchase Price\tPurchase Date\tPurchase Time\tSell Price\tSell Date\tSell Time\n");
             printf("%s\t%s\t%s\t%d\t%d-%d-%d\t%d:%d\t%d\t%d-%d-%d\t%d:%d\n", phone.serialnumber, phone.modelnumber, phone.vendercode, phone.purchaseprice, phone.purchaseDT.year, phone.purchaseDT.month, phone.purchaseDT.day, phone.purchaseDT.hour, phone.purchaseDT.minute, phone.sellprice, phone.sellDT.year, phone.sellDT.month, phone.sellDT.day, phone.sellDT.hour, phone.sellDT.minute);
             break;
@@ -137,7 +145,8 @@ void FindPhoneusingVC(char *VC) {
 }
 
 // Function to input VC to find phone
-void FindPhoneusingVCInput() {
+void FindPhoneusingVCInput()
+{
     // Declare variables
     char VC[32];
 
@@ -150,7 +159,8 @@ void FindPhoneusingVCInput() {
 }
 
 // Function to find a Model-Number by Vendor-Code, return modelnumber
-char *FindModelusingVC(char *VC) {
+char *FindModelusingVC(char *VC)
+{
     // Declare variables
     struct phoneModel model;
     FILE *fp;
@@ -159,14 +169,17 @@ char *FindModelusingVC(char *VC) {
     fp = fopen(modelsfilename, "rb");
 
     // Check if file is opened successfully
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("Error opening file\n");
         return NULL;
     }
 
     // Find model by Vendor-Code
-    while (fread(&model, sizeof(struct phoneModel), 1, fp)) {
-        if (strcmp(model.vendercode, VC) == 0) {
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        if (strcmp(model.vendercode, VC) == 0)
+        {
             fclose(fp);
             char *modelnumber = malloc(strlen(model.modelnumber) + 1);
             strcpy(modelnumber, model.modelnumber);
@@ -181,7 +194,8 @@ char *FindModelusingVC(char *VC) {
 }
 
 // Function to find model data using Model-Number and print all MN, VC, Manufacture, Model-Name, Storage, Color, Sell-Price
-void FindModelusingMN(char *MN) {
+void FindModelDataUsingMN(char *MN)
+{
     // Declare variables
     struct phoneModel model;
     FILE *fp;
@@ -190,14 +204,68 @@ void FindModelusingMN(char *MN) {
     fp = fopen(modelsfilename, "rb");
 
     // Check if file is opened successfully
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return;
+    }
+
+    bool found = false;
+
+    // Find model data by Model-Number
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        if (strcmp(model.modelnumber, MN) == 0)
+        {
+            if (!found) // Print header
+            {
+                printf("Model Number\tVendor Code\tManufacture\tModel Name\tStorage\tColor\tSell Price\n");
+            }
+            printf("%s\t%s\t%s\t%s\t%d\t%s\t%d\n", model.modelnumber, model.vendercode, model.manufacture, model.modelname, model.storage, model.coloroption, model.sellprice);
+            found = true;
+        }
+    }
+
+    // Close file
+    fclose(fp);
+}
+
+// Function to find model data using Model-Number in CLI
+void FindModelDatausingMNInput()
+{
+    // Declare variables
+    char MN[32];
+
+    // Get MN from user
+    printf("Enter Model Number: ");
+    scanf("%s", MN);
+
+    // Find model by MN
+    FindModelDataUsingMN(MN);
+}
+
+// Function to find model data using VC and print all MN, VC, Manufacture, Model-Name, Storage, Color, Sell-Price
+void FindModelDataUsingVC(char *VC)
+{
+    // Declare variables
+    struct phoneModel model;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(modelsfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
         printf("Error opening file\n");
         return;
     }
 
     // Find model data by Model-Number
-    while (fread(&model, sizeof(struct phoneModel), 1, fp)) {
-        if (strcmp(model.modelnumber, MN) == 0) {
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        if (strcmp(model.vendercode, VC) == 0)
+        {
             printf("Model Number\tVendor Code\tManufacture\tModel Name\tStorage\tColor\tSell Price\n");
             printf("%s\t%s\t%s\t%s\t%d\t%s\t%d\n", model.modelnumber, model.vendercode, model.manufacture, model.modelname, model.storage, model.coloroption, model.sellprice);
             break;
@@ -208,22 +276,23 @@ void FindModelusingMN(char *MN) {
     fclose(fp);
 }
 
-// Function to find model data using Model-Number in CLI
-void FindModelusingMNInput() {
+// Function to find model data using VC in CLI
+void FindModelDatausingVCInput()
+{
     // Declare variables
-    char MN[32];
+    char VC[32];
 
-    // Get MN from user
-    printf("Enter Model Number: ");
-    scanf("%s", MN);
+    // Get VC from user
+    printf("Enter Vendor Code: ");
+    scanf("%s", VC);
 
-    // Find model by MN
-    FindModelusingMN(MN);
+    // Find model by VC
+    FindModelDataUsingVC(VC);
 }
 
-
 // Function to find a Vendor-Code by Serial-Number, return vendorcode
-char *FindVCusingSN(char *SN) {
+char *FindVCusingSN(char *SN)
+{
     // Declare variables
     struct phone phone;
     FILE *fp;
@@ -232,14 +301,17 @@ char *FindVCusingSN(char *SN) {
     fp = fopen(phonesfilename, "rb");
 
     // Check if file is opened successfully
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("Error opening file\n");
         return NULL;
     }
 
     // Find phone by Serial-Number
-    while (fread(&phone, sizeof(struct phone), 1, fp)) {
-        if (strcmp(phone.serialnumber, SN) == 0) {
+    while (fread(&phone, sizeof(struct phone), 1, fp))
+    {
+        if (strcmp(phone.serialnumber, SN) == 0)
+        {
             fclose(fp);
             char *vendorcode = phone.vendercode;
             printf("VC: %s\n", vendorcode);
@@ -255,7 +327,8 @@ char *FindVCusingSN(char *SN) {
 }
 
 // Function to find a Sell-Price by Vendor-Code, return sellprice
-int FindSellPriceusingVC(char *VC) {
+int FindSellPriceusingVC(char *VC)
+{
     // Declare variables
     struct phoneModel model;
     FILE *fp;
@@ -264,14 +337,17 @@ int FindSellPriceusingVC(char *VC) {
     fp = fopen(modelsfilename, "rb");
 
     // Check if file is opened successfully
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("Error opening file\n");
         return -1;
     }
 
     // Find sellprice by Vendor-Code, ignore spaces
-    while (fread(&model, sizeof(struct phoneModel), 1, fp)) {
-        if (strcmp(model.vendercode, VC) == 0) {
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        if (strcmp(model.vendercode, VC) == 0)
+        {
             fclose(fp);
             int sellprice = model.sellprice;
             return sellprice;
@@ -286,12 +362,14 @@ int FindSellPriceusingVC(char *VC) {
 }
 
 // Function to find Sell-Price by Serial-Number, return sellprice, use existing function FindVCusingSN
-int FindSellPriceusingSN(char *SN) {
+int FindSellPriceusingSN(char *SN)
+{
     // Declare variables
     char *VC = FindVCusingSN(SN);
 
     // Check if VC is found
-    if (VC == NULL) {
+    if (VC == NULL)
+    {
         printf("Error finding Vendor Code\n");
         return -1;
     }
@@ -300,6 +378,5 @@ int FindSellPriceusingSN(char *SN) {
     int sellprice = FindSellPriceusingVC(VC);
     return sellprice;
 }
-
 
 #endif // FINDFUNCTIONS_H

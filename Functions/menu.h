@@ -192,10 +192,10 @@ void findMenu() {
                 FindPhoneusingSNInput();
                 break;
             case 2:
-                FindPhoneusingVCInput();
+                FindModelDatausingVCInput();
                 break;
             case 3:
-                FindModelusingMNInput();
+                FindModelDatausingMNInput();
                 break;
             case 0:
                 flag = 0;
