@@ -362,6 +362,7 @@ void menu(bool isAdmin) {
                 exit(0);
             default:
                 printf("Invalid choice\n");
+                askToContinue();
                 break;
         }
 

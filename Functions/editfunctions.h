@@ -173,7 +173,7 @@ void removePhone()
 void editModelSellPriceUsingVendorCode()
 {
     // Declare variables
-    char vendercode[10];
+    char vendercode[32];
     int sellprice;
     struct phoneModel model;
     FILE *fp, *temp;
