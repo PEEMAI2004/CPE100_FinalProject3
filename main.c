@@ -15,7 +15,7 @@ int main()
     bool isadmin = login();
 
     // Notify low stock
-    notifyStockLowerThanConfig();
+    ShowUnsoldVCthatLessthanOnStart();
 
     // Menu
     menu(isadmin);

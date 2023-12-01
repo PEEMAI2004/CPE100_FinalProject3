@@ -355,13 +355,13 @@ void printNumberOfPhonesUsingAllVC(char *mode, char *header)
     fclose(fp);
 }
 
-// Function to notifiy when strock is lower than user specified
-// using countUnsoldPhonesUsingVC(), loop throught "modelsfilename" to Plug in all VC in models database
-// Print header: VC, MN, Manufacture, Model-Name, Storage, Color, Remaining EA ,if there are any phones that have strock lower than "int user specified"
-// Print List of VC, MN, Manufacture, Model-Name, Storage, Color, Number of unsold phones that have strock lower than user specified
-void notifyStockLowerThan(int userSpecified)
+// Function to show vendor code that has lower unsold phones than user specified to function
+// SUDO CODE
+// Loop through all VC
+// Count unsold phones using VC
+// If unsold phones < user specified, print VC with number of unsold phones
+void ShowUnsoldVCthatLessthan(int userUnsoldPhones)
 {
-    // Declare variables
     struct phoneModel model;
     FILE *fp;
 
@@ -375,20 +375,17 @@ void notifyStockLowerThan(int userSpecified)
         return;
     }
 
-    // Print header
-    printf("VC\tMN\tManufacture\tModel-Name\tStorage\tColor\tRemaining EA\n");
-
     // Loop through file
     while (fread(&model, sizeof(struct phoneModel), 1, fp))
     {
-        // Declare variables
-        int remainingEA = countUnsoldPhonesUsingVC(model.vendercode);
+        // Count unsold phones using VC
+        int unsoldPhones = countUnsoldPhonesUsingVC(model.vendercode);
 
-        // Check if remainingEA is lower than user specified
-        if (remainingEA < userSpecified)
+        // Check if unsold phones < user specified
+        if (unsoldPhones < userUnsoldPhones)
         {
-            // Print VC, MN, Manufacture, Model-Name, Storage, Color, Remaining EA
-            printf("%s\t%s\t%s\t%s\t%d\t%s\t%d\n", model.vendercode, model.modelnumber, model.manufacture, model.modelname, model.storage, model.coloroption, remainingEA);
+            // Print VC with number of unsold phones
+            printf("VC: %s, Unsold phones: %d\n", model.vendercode, unsoldPhones);
         }
     }
 
@@ -396,97 +393,33 @@ void notifyStockLowerThan(int userSpecified)
     fclose(fp);
 }
 
-// Function to get user specified from config.yaml file key: notifyStrockLowerThan
-int getUserSpecified()
+// Function to show vendor code that has lower unsold phones than user specified to function CLI
+void ShowUnsodlVCthatLessthanCLI()
 {
     // Declare variables
-    FILE *fp;
-    char line[256];
-    char *key;
-    char *value;
+    int userUnsoldPhones;
 
-    // Open file in read mode
-    fp = fopen("config.yaml", "r");
+    // Get user input
+    printf("Enter number of unsold phones: ");
+    scanf("%d", &userUnsoldPhones);
 
-    // Check if file is opened successfully
-    if (fp == NULL)
-    {
-        printf("Error opening file\n");
-        return -1;
-    }
-
-    // Loop through file
-    while (fgets(line, sizeof(line), fp))
-    {
-        // Get key and value from line
-        key = strtok(line, ":");
-        value = strtok(NULL, ":");
-
-        // Check if key is notifyStrockLowerThan
-        if (strcmp(key, "notifyStrockLowerThan") == 0)
-        {
-            // Close file
-            fclose(fp);
-
-            // Return value
-            return atoi(value);
-        }
-
-        // if there is no key notifyStrockLowerThan, Create key notifyStrockLowerThan and set value to 10
-        if (strcmp(key, "notifyStrockLowerThan") != 0)
-        {
-            // Close file
-            fclose(fp);
-
-            // Open file in append mode
-            fp = fopen("config.yaml", "a");
-
-            // Check if file is opened successfully
-            if (fp == NULL)
-            {
-                printf("Error opening file\n");
-                return -1;
-            }
-
-            // Write key and value to file
-            fprintf(fp, "notifyStrockLowerThan: 10\n");
-
-            // Close file
-            fclose(fp);
-
-            // Return 10
-            return 10;
-        }
-    }
-
-    // Close file
-    fclose(fp);
-
-    // Return -1 if not found
-    return -1;
+    // Show vendor code that has lower unsold phones than user specified to function
+    ShowUnsoldVCthatLessthan(userUnsoldPhones);
 }
 
-// Function to notifiy when strock is lower than user specified in config.yaml file
-// using notifyStrockLowerThan()
-void notifyStockLowerThanConfig()
-{
-    // Declare variables
-    int userSpecified = 0;
-
-    // Get user specified from config.yaml file
-    userSpecified = getUserSpecified();
-
-    // Print header
-    printf("VC\tMN\tManufacture\tModel-Name\tStorage\tColor\tRemaining EA\n");
-
-    // Print list of VC, MN, Manufacture, Model-Name, Storage, Color, Number of unsold phones that have strock lower than user specified
-    notifyStockLowerThan(userSpecified);
-}
-
-// Function to edit notifyStrockLowerThan in config.yaml file
-// print current value of notifyStrockLowerThan and ask user to enter new value with confirmation
-void editNotifyNumberofUnsoldPhone() {
+// Function to show vendor code that has lower unsold phones than user specified to function on start use configfilename (.yaml)
+void ShowUnsoldVCthatLessthanOnStart() {
     
+    char choice;
+    while (getchar() != '\n');
+    printf("Do you want to view low stock Notify? (y/n): \n");
+    scanf("%c", &choice);
+
+    // Check if user want to show it
+    if (choice == 'y' || choice == 'Y') {
+        // Get user input for number of unsold phones and compute
+        ShowUnsodlVCthatLessthanCLI();
+    }
 }
 
 #endif
