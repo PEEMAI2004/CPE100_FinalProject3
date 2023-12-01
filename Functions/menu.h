@@ -9,6 +9,8 @@
 #include "usersystem.h"
 #include "stock.h"
 #include "printfunctions.h"
+#include "backupfunction.h"
+
 // Function to ask user to enter any key to continue
 void askToContinue() {
     printf("Press Enter or Return to continue...");
@@ -338,7 +340,7 @@ void backupMenu() {
                 createModelsBackup();
                 break;
             case 5:
-                clearBackupsPath();
+                clearBackupFolder();
                 break;
             case 0:
                 flag = 0;

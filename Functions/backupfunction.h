@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 
 
 #include "struct.h"
