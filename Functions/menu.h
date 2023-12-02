@@ -307,6 +307,7 @@ void printMenu() {
 
 // Backup Menu function
 void backupMenu() {
+    checkBackupFolder();
     int flag = 1;
     while (flag) {
         // provide a menu for the user
