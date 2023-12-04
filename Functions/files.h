@@ -7,7 +7,7 @@
 // Declare global variables
 // File name to store data
 const char phonesfilename[] = "Data/phones.bin";
-const char modelsfilename[] = "Data/models.bin";
-const char usersfilename[] = "Data/encrypteduserdata.bin";
+const char modelsfilename[] = "Data/models.bin";    
+const char usersfilename[] = "Data/userdata.bin";
 
 #endif // FILES_H
