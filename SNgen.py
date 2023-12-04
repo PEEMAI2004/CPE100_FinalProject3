@@ -9,7 +9,17 @@ import string
 
 
 def generate_phones(model_file_path, phone_file_path, n):
-    # Generate new phones and save to csv file
+    """
+    Generate new phones and save them to a CSV file.
+
+    Args:
+        model_file_path (str): The path to the file containing the model details.
+        phone_file_path (str): The path to the file where the generated phones will be saved.
+        n (int): The number of phones to generate per vendor code.
+
+    Returns:
+        None
+    """
     with open(model_file_path, 'r') as model_file, open(phone_file_path, 'w', newline='') as phone_file:
         model_reader = csv.reader(model_file)
         phone_writer = csv.writer(phone_file)
@@ -37,6 +47,7 @@ def generate_phones(model_file_path, phone_file_path, n):
                 
                 # Write the phone details to Newphone.csv
                 phone_writer.writerow([sn, model_number, vendor_code, sell_price - 5000])
+
 # ask user for number of phones to generate and path to read and write files
 n = int(input("Enter number of phones to generate per vendor code: "))
 model_file_path = input("Enter path to read file: ")
