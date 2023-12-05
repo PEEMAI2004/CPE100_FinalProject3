@@ -88,21 +88,26 @@ void editMenu() {
         switch (choice) {
             case 1:
                 removePhone();
+                askToContinue();
                 break;
             case 2:
                 removeModelUsingVendorCode();
+                askToContinue();
                 break;
             case 3:
                 removeModelUsingModelNumber();
+                askToContinue();
                 break;
             case 4:
                 editModelSellPriceUsingVendorCode();
+                askToContinue();
                 break;
             case 0:
                 flag = 0;
                 break;
             default:
                 printf("Invalid choice\n");
+                askToContinue();
                 break;
         }
 
@@ -119,13 +124,22 @@ void stockMenu() {
     while (flag) {
         // provide a menu for the user
         printf("\n\n");
-        printf("1. Count number of unsold phones using VC\n");
-        printf("2. Count number of sold phones using VC\n");
-        printf("3. Count number of all phones using VC\n");
-        printf("4. Count number of all unsold phones\n");
-        printf("5. Count number of all sold phones\n");
-        printf("6. Count number of all phones\n");
-        // printf("9. Edit Notify Number of unsold phone\n");
+        printf("11. Count number of unsold phones using VC\n");
+        printf("12. Count number of sold phones using VC\n");
+        printf("13. Count number of all phones using VC\n");
+        printf("21. Count number of all unsold phones\n");
+        printf("22. Count number of all sold phones\n");
+        printf("23. Count number of all phones\n");
+        printf("31. Show total purchase of all phones\n");
+        printf("32. Show total sell of all phones\n");
+        printf("33. Show total profit of all phones\n");
+        printf("41. Show total purchase of all phones using VC\n");
+        printf("42. Show total sell of all phones using VC\n");
+        printf("43. Show total profit of all phones using VC\n");
+        printf("51. Predict Sell\n");
+        printf("52. Predict Profit\n");
+        printf("61. Predict Sell Using Vendor Code\n");
+        printf("62. Predict Profit Using Vendor Code\n");
         printf("0. Exit to main menu\n");
 
         // get user input
@@ -135,32 +149,68 @@ void stockMenu() {
 
         // process user input
         switch (choice) {
-            case 1:
+            case 11:
                 countUnsoldPhonesUsingVCCLI();
                 askToContinue();
                 break;
-            case 2:
+            case 12:
                 countSoldPhonesUsingVCCLI();
                 askToContinue();
                 break;
-            case 3:
+            case 13:
                 countPhonesUsingVCCLI();
                 askToContinue();
                 break;
-            case 4:
+            case 21:
                 countAllUnsoldPhonesCLI();
                 askToContinue();
                 break;
-            case 5:
+            case 22:
                 countAllSoldPhonesCLI();
                 askToContinue();
                 break;
-            case 6:
+            case 23:
                 countAllPhonesCLI();
                 askToContinue();
                 break;
-            case 9:
-                // editNotifyNumberofUnsoldPhone();
+            case 31:
+                getTotalPurchasePriceCLI();
+                askToContinue();
+                break;
+            case 32:
+                getTotalSellPriceCLI();
+                askToContinue();
+                break;
+            case 33:
+                getTotalProfitCLI();
+                askToContinue();
+                break;
+            case 41:
+                getTotalPurchasePriceUsingVCCLI();
+                askToContinue();
+                break;
+            case 42:
+                getTotalSellPriceUsingVCCLI();
+                askToContinue();
+                break;
+            case 43:
+                getTotalProfitUsingVCCLI();
+                askToContinue();
+                break;
+            case 51:
+                predictSellCLI();
+                askToContinue();
+                break;
+            case 52:
+                predictProfitCLI();
+                askToContinue();
+                break;
+            case 61:
+                predictSellUsingVCCLI();
+                askToContinue();
+                break;
+            case 62:
+                predictProfitUsingVCCLI();
                 askToContinue();
                 break;
             case 0:

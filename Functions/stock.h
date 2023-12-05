@@ -422,4 +422,396 @@ void ShowUnsoldVCthatLessthanOnStart() {
     }
 }
 
+// Function to get total purchase price of all phones in the database from phonesfilename
+int getTotalPurchasePrice()
+{
+    // Declare variables
+    struct phone p;
+    int total = 0;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(phonesfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return -1;
+    }
+
+    // Loop through file
+    while (fread(&p, sizeof(struct phone), 1, fp))
+    {
+        // Add purchase price to total
+        total += p.purchaseprice;
+    }
+
+    // Close file
+    fclose(fp);
+
+    // Return total
+    return total;
+}
+
+// Function to get total purchase price of all phones CLI
+void getTotalPurchasePriceCLI()
+{
+    int total = getTotalPurchasePrice();
+    printf("Total purchase price: %d\n", total);
+}
+
+// Function to get total sell price of all phones in the database from phonesfilename
+int getTotalSellPrice()
+{
+    // Declare variables
+    struct phone p;
+    int total = 0;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(phonesfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return -1;
+    }
+
+    // Loop through file
+    while (fread(&p, sizeof(struct phone), 1, fp))
+    {
+        // Add sell price to total
+        total += p.sellprice;
+    }
+
+    // Close file
+    fclose(fp);
+
+    // Return total
+    return total;
+}
+
+// Function to get total sell price of all phones CLI
+void getTotalSellPriceCLI()
+{
+    int total = getTotalSellPrice();
+    printf("Total sell price: %d\n", total);
+}
+
+// Function to get total profit of all phones in the database from phonesfilename, use getTotalPurchasePrice() and getTotalSellPrice()
+int getTotalProfit()
+{
+    return getTotalSellPrice() - getTotalPurchasePrice();
+}
+
+// Function to get total profit of all phones CLI
+void getTotalProfitCLI()
+{
+    int total = getTotalProfit();
+    printf("Total profit: %d\n", total);
+}
+
+// Function to get total purchase price of all phones share same VC in the database from phonesfilename
+int getTotalPurchasePriceUsingVC(char *vc)
+{
+    // Declare variables
+    struct phone p;
+    int total = 0;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(phonesfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return -1;
+    }
+
+    // Loop through file
+    while (fread(&p, sizeof(struct phone), 1, fp))
+    {
+        // Check if VC is equal to vc
+        if (strcmp(p.vendercode, vc) == 0)
+        {
+            // Add purchase price to total
+            total += p.purchaseprice;
+        }
+    }
+
+    // Close file
+    fclose(fp);
+
+    // Return total
+    return total;
+}
+
+// Function to get total purchase price of all phones share same VC CLI
+void getTotalPurchasePriceUsingVCCLI()
+{
+    // Declare variables
+    char vc[32];
+
+    // Get VC from user
+    printf("Enter Vendor Code: ");
+    scanf("%s", vc);
+
+    // check if VC is exist
+    if (!isVendorCodeExist(vc))
+    {
+        printf("Vendor Code not exist\n");
+        return;
+    }
+
+    // Print total purchase price using VC
+    printf("Total purchase price using VC %s: %d\n", vc, getTotalPurchasePriceUsingVC(vc));
+}
+
+// Function to get total sell price of all phones share same VC in the database from phonesfilename
+int getTotalSellPriceUsingVC(char *vc)
+{
+    // Declare variables
+    struct phone p;
+    int total = 0;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(phonesfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+        return -1;
+    }
+
+    // Loop through file
+    while (fread(&p, sizeof(struct phone), 1, fp))
+    {
+        // Check if VC is equal to vc
+        if (strcmp(p.vendercode, vc) == 0)
+        {
+            // Add sell price to total
+            total += p.sellprice;
+        }
+    }
+
+    // Close file
+    fclose(fp);
+
+    // Return total
+    return total;
+}
+
+// Function to get total sell price of all phones share same VC CLI
+void getTotalSellPriceUsingVCCLI()
+{
+    // Declare variables
+    char vc[32];
+
+    // Get VC from user
+    printf("Enter Vendor Code: ");
+    scanf("%s", vc);
+
+    // check if VC is exist
+    if (!isVendorCodeExist(vc))
+    {
+        printf("Vendor Code not exist\n");
+        return;
+    }
+
+    // Print total sell price using VC
+    printf("Total sell price using VC %s: %d\n", vc, getTotalSellPriceUsingVC(vc));
+}
+
+// Function to get total profit of all phones share same VC in the database from phonesfilename, use getTotalPurchasePriceUsingVC() and getTotalSellPriceUsingVC()
+int getTotalProfitUsingVC(char *vc)
+{
+    return getTotalSellPriceUsingVC(vc) - getTotalPurchasePriceUsingVC(vc);
+}
+
+// Function to get total profit of all phones share same VC CLI
+void getTotalProfitUsingVCCLI()
+{
+    // Declare variables
+    char vc[32];
+
+    // Get VC from user
+    printf("Enter Vendor Code: ");
+    scanf("%s", vc);
+
+    // check if VC is exist
+    if (!isVendorCodeExist(vc))
+    {
+        printf("Vendor Code not exist\n");
+        return;
+    }
+
+    // Print total profit using VC
+    printf("Total profit using VC %s: %d\n", vc, getTotalProfitUsingVC(vc));
+}
+
+// Function to predict sell of all phones share same VC in the database from phonesfilename
+// Predict sell = getTotalSellPriceUsingVC() + remaining unsold phones * sell price of the model
+int predictSellUsingVC(char *vc)
+{
+    // Declare variables
+    struct phoneModel model;
+    struct phone p;
+    int total = 0;
+    int remaining = 0;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(modelsfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+    }
+
+    // Loop through file
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        // Check if VC is equal to vc
+        if (strcmp(model.vendercode, vc) == 0)
+        {
+            // Get remaining unsold phones
+            remaining = countUnsoldPhonesUsingVC(vc);
+
+            // Get sell price of the model
+            int sellprice = model.sellprice;
+
+            // Get total sell price using VC
+            total = getTotalSellPriceUsingVC(vc);
+
+            // Add remaining unsold phones * sell price of the model to total
+            total += remaining * sellprice;
+        }
+    }
+
+    // Close file
+    fclose(fp);
+
+    // Return total
+    return total;
+}
+
+// Function to predict sell of all phones share same VC CLI
+void predictSellUsingVCCLI()
+{
+    // Declare variables
+    char vc[32];
+
+    // Get VC from user
+    printf("Enter Vendor Code: ");
+    scanf("%s", vc);
+
+    // check if VC is exist
+    if (!isVendorCodeExist(vc))
+    {
+        printf("Vendor Code not exist\n");
+        return;
+    }
+
+    // Print predict sell using VC
+    printf("Predict sell using VC %s: %d\n", vc, predictSellUsingVC(vc));
+}
+
+// Function to predict profit of all phones share same VC in the database from phonesfilename
+// Predict profit = predictSellUsingVC() - getTotalPurchasePriceUsingVC()
+int predictProfitUsingVC(char *vc)
+{
+    return predictSellUsingVC(vc) - getTotalPurchasePriceUsingVC(vc);
+}
+
+// Function to predict profit of all phones share same VC CLI
+void predictProfitUsingVCCLI()
+{
+    // Declare variables
+    char vc[32];
+
+    // Get VC from user
+    printf("Enter Vendor Code: ");
+    scanf("%s", vc);
+
+    // check if VC is exist
+    if (!isVendorCodeExist(vc))
+    {
+        printf("Vendor Code not exist\n");
+        return;
+    }
+
+    // Print predict profit using VC
+    printf("Predict profit using VC %s: %d\n", vc, predictProfitUsingVC(vc));
+}
+
+// Function to predict sell of all phones in the database from phonesfilename
+// Predict sell = getTotalSellPrice() + (remaining unsold phones * sell price of the model) of each VC
+int predictSell()
+{
+    // Declare variables
+    struct phoneModel model;
+    struct phone p;
+    int total = 0;
+    int remaining = 0;
+    FILE *fp;
+
+    // Open file in read binary mode
+    fp = fopen(modelsfilename, "rb");
+
+    // Check if file is opened successfully
+    if (fp == NULL)
+    {
+        printf("Error opening file\n");
+    }
+
+    // Loop through file
+    while (fread(&model, sizeof(struct phoneModel), 1, fp))
+    {
+        // Get remaining unsold phones
+        remaining = countUnsoldPhonesUsingVC(model.vendercode);
+
+        // Get sell price of the model
+        int sellprice = model.sellprice;
+
+        // Get total sell price using VC
+        total = getTotalSellPriceUsingVC(model.vendercode);
+
+        // Add remaining unsold phones * sell price of the model to total
+        total += remaining * sellprice;
+    }
+
+    // Close file
+    fclose(fp);
+
+    // Return total
+    return total;
+}
+
+// Function to predict sell of all phones CLI
+void predictSellCLI()
+{
+    // Print predict sell
+    printf("Predict sell: %d\n", predictSell());
+}
+
+// Function to predict profit of all phones in the database from phonesfilename
+// Predict profit = predictSell() - getTotalPurchasePrice()
+int predictProfit()
+{
+    return predictSell() - getTotalPurchasePrice();
+}
+
+// Function to predict profit of all phones CLI
+void predictProfitCLI()
+{
+    // Print predict profit
+    printf("Predict profit: %d\n", predictProfit());
+}
+
 #endif

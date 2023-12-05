@@ -7,6 +7,13 @@
 
 #include "struct.h"
 #include "files.h"
+bool isSerialNumberExist(char *sn);
+
+bool isModelNumberExist(char *modelnumber);
+
+bool isVendorCodeExist(char *vendorcode);
+
+bool isPhoneSold(char *sn);
 
 // Function to check if the given SN is exist in the database or not return true if exist and false if not
 bool isSerialNumberExist(char *sn)
